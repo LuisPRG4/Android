@@ -1,0 +1,74 @@
+# main.kv
+
+<ContentScreen>:
+    MDCard:
+        orientation: "vertical"
+        size_hint: 0.9, 0.9
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        elevation: 12
+        radius: [10, 10, 10, 10]
+
+        # --- BARRA DE TÍTULO ---
+        MDBoxLayout:
+            adaptive_height: True
+            padding: "8dp"
+            spacing: "10dp"
+            md_bg_color: app.theme_cls.primary_color
+
+            MDLabel:
+                text: "Mi Bloc de Notas"
+                font_style: "H6"
+                halign: "center"
+                color: 1, 1, 1, 1
+
+            MDFillRoundFlatIconButton:
+                icon: "window-minimize"
+                theme_icon_color: "Custom"
+                icon_color: 1, 1, 1, 1
+                on_release: app.minimize_window()
+
+            MDFillRoundFlatIconButton:
+                icon: "window-close"
+                theme_icon_color: "Custom"
+                icon_color: 1, 1, 1, 1
+                on_release: app.stop()
+
+        # --- MENÚ ---
+        MDBoxLayout:
+            adaptive_height: True
+            padding: "5dp"
+            spacing: "10dp"
+            md_bg_color: app.theme_cls.bg_dark
+
+            MDRaisedButton:
+                id: toolbar_file_button
+                text: "Archivo"
+                on_release: root.show_file_menu()
+
+            MDRaisedButton:
+                id: toolbar_edit_button
+                text: "Editar"
+                on_release: root.show_edit_menu()
+
+        # --- ÁREA DE TEXTO ---
+        ScrollView:
+            MDTextField:
+                id: text_field
+                hint_text: "Escribe tu nota aquí..."
+                multiline: True
+                font_size: "16sp"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: "10dp"
+
+        # --- BARRA DE ESTADO ---
+        MDBoxLayout:
+            adaptive_height: True
+            padding: "8dp"
+            md_bg_color: app.theme_cls.bg_dark
+
+            MDLabel:
+                id: status_bar
+                text: "Listo"
+                font_style: "Caption"
+                halign: "left"
